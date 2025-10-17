@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width-initial-scale">
+	<title>DRILL 1 - Personal Slambook</title>
+	<style>
+		: {font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;--accent:#5b8def}
+body{margin:0;background:linear-gradient(180deg,#f6f9ff,#ffffff);padding:28px;color:#222}
+.wrap{max-width:900px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 6px 24px rgba(30,40,80,0.08);padding:20px}
+h1{margin:0 0 10px;font-size:20px}
+p.lead{margin:0 0 16px;color:#555} 
+form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{display:block;font-size:13px;color:#333;margin-bottom:6px}
+input[type=text],input[type=date],textarea,select{width:100%;padding:8px 10px;border:1px solid #e3e7ee;border-radius:8px;font-size:14px}
+textarea{min-height:90px;resize:vertical}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+button{background:var(--accent);border:none;color:white;padding:8px 12px;border-radius:10px;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(91,141,239,0.2)}
+.small{padding:6px 10px;font-size:13px}
+.note{font-size:12px;color:#666}
+.slambook-card{display:none;margin-top:18px;border:1px dashed #e0e6f5;padding:12px;border-radius:10px;background:#fbfcff}
+.card-row{display:flex;gap:12px}
+.avatar{width:96px;height:96px;border-radius:10px;background:#e8eefb;display:flex;align-items:center;justify-content:center;font-weight:700;color:#5b74b7}
+.key{font-weight:600;margin-right:8px}
+.controls{margin-left:auto}
+.import-file{display:inline-block}
+@media (max-width:680px){form{grid-template-columns:1fr} .avatar{width:76px;height:76px}}
+@media print{body{background:white} .wrap{box-shadow:none;border-radius:0} .no-print{display:none} .slambook-card{display:block}}
+</style>		
+</head>
+<body>
+	<div class="wrap">
+<div style="font-size:18px;font-weight:700" id="cardName">Melcy Benasas</div>
+<div style="font-size:13px;color:#666" id="cardNick">(Melcy)</div>
+</div>
+<div style="margin-left:auto;text-align:right">
+<div class="note">Birthday: <span id="cardBday">—</span></div>
+<div class="note">Contact: <span id="cardContact">—</span></div>
+</div>
+</div>
+
+<hr style="border:none;border-top:1px dashed #e6eefb;margin:12px 0">
+<div><strong>About Me:</strong>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div><span class="key">Fav song:</span> <span id="cardSong">Calirfornia</span></div>
+<div><span class="key">fav food:</span> <span id="cardFood">carbonara</span></div>
+<div><span class="key">Fac color:</span> <span id="cardColor">yellow</span></div>
+<div><span class="key">Idol:</span> <span id="cardIdol">Zild</span></div>
+<div style="grid-column:1/-1"><span class="key">Big dream:</span> To be a nurse<span id="cardDream">—</span></div>
+</div>
+
+<hr style="border:none;border-top:1px dashed #e6eefb;margin:12px 0">
+
+</div>
+
+<div style="margin-top:8px"><strong>Message:</strong>
+<div id="cardMessage">—</div>
+</div>
+</div>
+
+</div>
+
+<script>
+// Simple slambook app logic
+const form = document.getElementById('slambookForm');
+const fields = ['fullName','nick','birthday','contact','about','favColor','favSong','favFood','idol','crush','dream','message'];
+const storageKey = 'drill1_slambook_v1';
+
+// helpers
+const el = id => document.getElementById(id);
+function nowIso(){return new Date().toLocaleString()}
+
+// load if exists
+function loadFromStorage(){
+const raw = localStorage.getItem(storageKey);
+if(!raw) return;
+try{
+const data = JSON.parse(raw);
+fields.forEach(k => { if(data[k] !== undefined) el(k).value = data[k]; });
+if(data.photo) setPhotoPreview(data.photo);
+el('lastSaved').textContent = data._savedAt || 'unknown';
+}catch(e){console.warn('Failed load',e)}
+}
+
+function gatherData(){
+const data = {};
+fields.forEach(k => data[k] = el(k).value || '');
+data._savedAt = nowIso();
+data.photo = el('photoPreview').dataset.img || null;
+return data;
+}
+
+function saveLocal(){
+const data = gatherData();
+localStorage.setItem(storageKey, JSON.stringify(data));
+el('lastSaved').textContent = data._savedAt;
+alert('Saved to local storage. You can export JSON to keep a copy.');
+}
+function exportJSON(){
+if(EE479BFF-B843-4F49-8ED5-7DFBFFFA536E.png) setPhotoPreview(EE479BFF-B843-4F49-8ED5-7DFBFFFA536E.png);
+el('lastSaved').textContent = data._savedAt || nowIso();
+alert('Imported data from JSON.');
+}catch(err){alert('Invalid JSON file')}
+};
+reader.readAsText(f);
+e.target.value = '';
+});
+
+// preview card
+function renderCard(){
+el('cardName').textContent = el('fullName').value || 'Full Name';
+el('cardNick').textContent = el('nick').value ? `(${el('nick').value})` : '';
+el('cardBday').textContent = el('birthday').value || '—';
+el('cardContact').textContent = el('contact').value || '—';
+el('cardSong').textContent = el('favSong').value || '—';
+el('cardFood').textContent = el('favFood').value || '—';
+el('cardColor').textContent = el('favColor').value || '—';
+el('cardIdol').textContent = el('idol').value || '—';
+el('cardDream').textContent = el('dream').value || '—';
+el('cardAbout').textContent = el('about').value || '—';
+el('cardMessage').textContent = el('message').value || '—';
+// photo
+const photo = el('photoPreview').dataset.img;
+const cardPhoto = el('cardPhoto');
+if(photo){ cardPhoto.style.backgroundImage = `url(https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fbasic-background&psig=AOvVaw3pB0hYh0s10gytMg26q8Nb&ust=1759611020625000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOC6vID0iJADFQAAAAAdAAAAABAE)`; cardPhoto.textContent = '';}
+else { cardPhoto.style.backgroundImage = ''; cardPhoto.textContent = (el('nick').value||'?').slice(0,2).toUpperCase(); }
+
+el('card').style.display = 'block';
+// scroll into view
+el('card').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// photo preview helper
+function setPhotoPreview(dataUrl){
+const p = el('photoPreview');
+if(dataUrl){ p.style.backgroundImage = `url(${dataUrl})`; p.textContent = ''; p.dataset.img = dataUrl; }
+else { p.style.backgroundImage=''; p.textContent='No Photo'; delete p.dataset.img; }
+}
+
+el('photoInput').addEventListener('change', e => {
+const f = e.target.files[0]; if(!f) return;
+const reader = new FileReader();
+reader.onload = () => setPhotoPreview(reader.result);
+reader.readAsDataURL(f);
+});
+
+// print
+el('printBtn').addEventListener('click', () => { renderCard(); window.print(); });
+el('previewBtn').addEventListener('click', renderCard);
+el('saveBtn').addEventListener('click', saveLocal);
+el('exportBtn').addEventListener('click', exportJSON);
+
+// autosave on changes (debounced)
+let debounceTimer;
+form.addEventListener('input', () => {
+clearTimeout(debounceTimer);
+debounceTimer = setTimeout(() => {
+localStorage.setItem(storageKey, JSON.stringify(gatherData()));
+el('lastSaved').textContent = nowIso();
+}, 800);
+});
+
+// initial load
+loadFromStorage();
+
+// keyboard shortcut: Ctrl/Cmd+S to export JSON
+window.addEventListener('keydown', (e) => {
+if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's'){
+e.preventDefault(); exportJSON();
+}
+});
+
+</script>
+</body>
+</html>
+
+
+	
+</body>
+
+</script>
+</body>
+</html>
