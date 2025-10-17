@@ -1,0 +1,17 @@
+
+</html>
+<head>
+	<style>
+		body {
+			margin: 0;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: whitesmoke;
+			overflow: hidden;
+
+		}
+		.container: {;
+			font-size: 10px;
+			width: 40en;

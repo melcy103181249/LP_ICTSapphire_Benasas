@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> Form </title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="work-item">
+<img src="c610abf2-0c13-4b90-abd4-4db609b655ab.png" alt="Personal Blog and School Portfolio">
+<div class="work-desc">
+<h4>Personal Blog & School Portfolio</h4>
+<p>This project showcases my journey as a student — featuring my reflections, favorite works, and creative outputs throughout the school year.</p>
+</div>
+</div>
+
+<div class="work-item">
+<img src="Screenshot 2025-10-08 at 5.15.22 PM.png" alt="Links and Images">
+<div class="work-desc">
+<h4>Links and Images</h4>
+<p>A compilation of my favorite artists, media inspirations, and creative layouts inspired by music and design aesthetics.</p>
+</div>
+</div>
+</section>
+
+<section id="contact" class="container contact">
+<h3>Contact Me</h3>
+<form class="contact-form" action="#" method="post">
+<label for="name">Name:</label>
+<input id="name" name="name" type="text" placeholder="Enter your name" required>
+
+<label for="find">Where did you find me?</label>
+<select id="find" name="find">
+<option value="facebook">Facebook</option>
+<option value="google">Google</option>
+<option value="friends">Friends</option>
+</select>
+
+<label for="email">Email:</label>
+<input id="email" name="email" type="email" placeholder="you@example.com" required>
+
+<label for="rating">Rate my portfolio (1-10):</label>
+<input id="rating" name="rating" type="number" min="1" max="10" placeholder="10" required>
+
+<label for="feedback">Feedback:</label>
+<textarea id="feedback" name="feedback" rows="4" placeholder="Write your feedback here..."></textarea>
+
+<button class="btn" type="submit">Submit</button>
+</form>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<p>© <span id="year"></span> Melcy Benasas — OB Montessori | ICT 9 Section</p>
+</div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+<head>
+	<style>
+		body {
+			margin: 0;
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: whitesmoke;
+			overflow: hidden;
+
+		}
+		.container: {;
+			font-size: 10px;
+			width: 40en;
+
+	</style>
+</head>
